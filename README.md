@@ -68,3 +68,30 @@ count_tags(OSMFILE)
  'tag': 87071,
  'way': 27558}
  ```
+I will do a bit more exploration on the data. In the OSM XML file, the 'tag' element has key-value pairs which contain information about different points (nodes) or ways in the map. I parse through this element using the following regular expressions:
+- lower -> ^([a-z]|_)*$ : This matches strings that contain only lower case characters. I start at the beginning of the strong and match between zero to unlimited times a character in range 'a' to 'z'. This regular expression also covers the underscore '_' character. 
+
+- lower_colon -> ^([a-z]|_)*:([a-z]|_)*$ : This matches strings which contain lower case characters but also have the colon ':' character e.g. addr:street is one type of tag which specifies a street name. 
+
+- problemchar -> [=\+/&<>;\'"\?%#$@\,\. \t\r\n] : This matches tags with problematic characters specified in the regex pattern. 
+
+Take this section of the map as an example:
+
+    <node changeset="30175357" id="358830340" lat="37.6504905" lon="-122.4896963" timestamp="2015-04-12T22:43:37Z" 
+        uid="35667" user="encleadus" version="4">
+		<tag k="name" v="Ocean Shore School" />
+		<tag k="phone" v="+1 650 738 6650" />
+		<tag k="amenity" v="school" />
+		<tag k="website" v="http://www.oceanshoreschool.org/" />
+		<tag k="addr:city" v="Pacifica" />
+		<tag k="addr:state" v="CA" />
+		<tag k="addr:street" v="Oceana Boulevard" />
+		<tag k="gnis:created" v="04/06/1998" />
+		<tag k="addr:postcode" v="94044" />
+		<tag k="gnis:state_id" v="06" />
+		<tag k="gnis:county_id" v="081" />
+		<tag k="gnis:feature_id" v="1785657" />
+		<tag k="addr:housenumber" v="411" />
+	</node>
+    
+This node tag has 13 tag elements inside it. There are multiple keys that have the ':' character in them, so they fall under the 'lower_colon' regular expression. keys like name, phone, and amenity will fall under the 'lower' regular expression. There are no problematic characters in this specific node.
