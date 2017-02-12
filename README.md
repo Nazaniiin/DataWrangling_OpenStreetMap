@@ -156,3 +156,28 @@ def process_map(filename):
     
 process_map(OSMFILE)
 ```
+## How the Project Proceeds
+
+The rest of the project consists of:
+- Auditing street names
+- Auditing postcodes
+- Preparing the data for the database
+- Creating tables in the database
+- Running queries on the data
+- Conclusions
+
+The detailed case study includes information about all snippets of codes, as well as outputs from the query. You can find the complete report from this repository from [CaseStudy for OpenStreetMap](https://github.com/Nazaniiin/OpenStreetMap_DataWrangling/blob/master/CaseStudy_OpenStreetMap.ipynb) 
+
+## The Files in This Repository
+
+The Jupyter notebook gives a complete exaplanation regarding the project, the code, and queries. To be able to run the code locally, you need to have the following files:
+- shaping_csv.py : The main function where the CSV files get created from the OSM data
+	- Remember to check the imports and have the necessary libraries installed
+- audit.py : This script contains the auditing and cleaning functions for editing street names and postcodes.
+	- Store this file in the same directory as the shaping_csv.py file as shaping_csv calls the functions in audit.py 
+- creating_database.py : This script create your database and tables, then insert the data from nodes, nodes_tags, ways, ways_tags and ways_nodes in corresponding tables
+	- The information to insert the data comes from CSV files that got created while running shaping_csv.py script
+- query_on_database.py : This script contains all the SQL commands I ran on the data. All the script with their output are available from the [CaseStudy for OpenStreetMap](https://github.com/Nazaniiin/OpenStreetMap_DataWrangling/blob/master/CaseStudy_OpenStreetMap.ipynb)
+- san-francisco_california_sample.osm : This file contains a sample data of size 50MB from the original San Francisco database. The original file size for San Francisco database is around 1GB.
+
+
