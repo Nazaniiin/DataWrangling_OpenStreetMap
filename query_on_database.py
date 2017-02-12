@@ -137,3 +137,33 @@ def list_of_postcodes():
 
 print 'List of postcodes: \n'
 list_of_postcodes()
+
+def amenities_around_94122():
+    output = cur.execute('SELECT nodes_tags.value, COUNT(*) as num \
+                          FROM nodes_tags \
+                            JOIN (SELECT DISTINCT(id) FROM nodes_tags WHERE key="amenity") AS amenities \
+                            ON nodes_tags.id = amenities.id \
+                            WHERE nodes_tags.key="amenity"\
+                            GROUP BY nodes_tags.value \
+                            ORDER BY num DESC \
+                            LIMIT 20' ) # Remove this limit to see the complete list of postcodes
+    pprint(output.fetchall())
+    return output.fetchall()
+
+print 'Amenities around 94122 postcode: \n'
+amenities_around_94122()
+
+def most_popular_cafes():
+    output = cur.execute('SELECT nodes_tags.value, COUNT(*) as num \
+                          FROM nodes_tags \
+                            JOIN (SELECT DISTINCT(id) FROM nodes_tags WHERE value="coffee_shop") AS cafes \
+                            ON nodes_tags.id = cafes.id \
+                            WHERE nodes_tags.key="name"\
+                            GROUP BY nodes_tags.value \
+                            ORDER BY num DESC \
+                            LIMIT 10' ) # Remove this limit to see the complete list of postcodes
+    pprint(output.fetchall())
+    return output.fetchall()
+
+print 'Most popular cafes in San Francisco: \n'
+most_popular_cafes()
