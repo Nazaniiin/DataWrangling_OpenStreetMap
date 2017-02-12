@@ -41,6 +41,7 @@ http://stackoverflow.com/questions/12792998/elementtree-iterparse-strategy
 
 In this code, I will iterate through different tags in the XML (nodes,ways,relations,member,...) and count them, put them in a dictionary with the key being the tag name.
 
+```python
 import xml.etree.cElementTree as ET
 import pprint
 
@@ -57,3 +58,4 @@ def count_tags(filename):
     pprint.pprint(tags)
     
 count_tags(OSMFILE)
+```
