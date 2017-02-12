@@ -59,3 +59,12 @@ def count_tags(filename):
     
 count_tags(OSMFILE)
 ```
+```
+{'member': 2530,
+ 'nd': 281292,
+ 'node': 235744,
+ 'osm': 1,
+ 'relation': 283,
+ 'tag': 87071,
+ 'way': 27558}
+ ```
