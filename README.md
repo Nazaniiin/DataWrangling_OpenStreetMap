@@ -40,3 +40,20 @@ Using ET.iterparse (i.e. iterative parsing) is efficient here since the original
 http://stackoverflow.com/questions/12792998/elementtree-iterparse-strategy
 
 In this code, I will iterate through different tags in the XML (nodes,ways,relations,member,...) and count them, put them in a dictionary with the key being the tag name.
+
+import xml.etree.cElementTree as ET
+import pprint
+
+OSMFILE = '/Users/nazaninmirarab/Desktop/Data Science/P3/Project/Submission2/san-francisco_california_sample.osm'
+
+def count_tags(filename):
+    tags= {}
+    for event, elem in ET.iterparse(filename):
+        if elem.tag not in tags.keys():
+            tags[elem.tag] = 1
+        else:
+            tags[elem.tag] += 1
+    
+    pprint.pprint(tags)
+    
+count_tags(OSMFILE)
