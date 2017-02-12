@@ -1,3 +1,8 @@
+"""This schema is written by the Udacity lecturers.
+It defines the schema for nodes, nodes_tags, ways, ways_tags, 
+and ways_nodes tables for the database.
+"""
+
 schema = {
     'node': {
         'type': 'dict',
