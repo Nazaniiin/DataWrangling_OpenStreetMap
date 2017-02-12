@@ -13,6 +13,7 @@ The queries answer many questions such as:
 	Cuisines in San Francisco
 	Shops in San Francisco
 	Users who added amenities
+	List of postcodes
 '''
 
 from pprint import pprint
@@ -124,3 +125,15 @@ def users_who_added_amenity():
 
 print 'Users who added amenity to the map: \n', users_who_added_amenity()
 
+def list_of_postcodes():
+    output = cur.execute('SELECT e.value, COUNT(*) as num FROM \
+                            (SELECT value FROM nodes_tags WHERE key="postcode"\
+                             UNION ALL SELECT value FROM ways_tags WHERE key="postcode") e \
+                            GROUP BY e.value \
+                            ORDER BY num DESC \
+                            LIMIT 5' ) # Remove this limit to see the complete list of postcodes
+    pprint(output.fetchall())
+    return output.fetchall()
+
+print 'List of postcodes: \n'
+list_of_postcodes()
