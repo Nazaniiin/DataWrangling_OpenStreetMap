@@ -95,3 +95,64 @@ Take this section of the map as an example:
 	</node>
     
 This node tag has 13 tag elements inside it. There are multiple keys that have the ':' character in them, so they fall under the 'lower_colon' regular expression. keys like name, phone, and amenity will fall under the 'lower' regular expression. There are no problematic characters in this specific node.
+
+```python
+import xml.etree.cElementTree as ET
+import pprint
+import re
+
+OSMFILE = '/Users/nazaninmirarab/Desktop/Data Science/P3/Project/Submission2/san-francisco_california_sample.osm'
+
+lower = re.compile(r'^([a-z]|_)*$')
+lower_colon = re.compile(r'^([a-z]|_)*:([a-z]|_)*$')
+problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
+
+
+def key_type(element, keys):
+    if element.tag == "tag":
+        for tag in element.iter('tag'): #iterating through the tag element in the XML file
+            k = element.attrib['k'] #looking for the tag attribute 'k' which contains the keys
+            if re.search(lower, k):
+                keys['lower'] += 1
+            elif re.search(lower_colon, k):
+                keys['lower_colon'] += 1
+            elif re.search(problemchars, k):
+                keys['problemchars'] += 1
+            else:
+                keys['other'] += 1
+                
+    return keys
+
+def process_map(filename):
+    keys = {"lower": 0, "lower_colon": 0, "problemchars": 0, "other": 0}
+    for _, element in ET.iterparse(filename):
+        keys = key_type(element, keys)
+
+    pprint.pprint(keys)
+    
+process_map(OSMFILE)
+```
+```
+{'lower': 51867, 'lower_colon': 33909, 'other': 1281, 'problemchars': 14}
+```
+I now want to collect some information about the users contributed to the OpenStreetMap data for San Francisco area. I want to calculate the number of unique users. 
+
+To find the users, we need to look through the attributes of the node, way and relation tags. The 'uid' attribute is what we need to count.
+
+    <node changeset="30175357" id="358830340" lat="37.6504905" lon="-122.4896963" timestamp="2015-04-12T22:43:37Z" 
+    uid="35667" user="encleadus" version="4">
+
+```python
+OSMFILE = '/Users/nazaninmirarab/Desktop/Data Science/P3/Project/Submission2/san-francisco_california_sample.osm'
+
+def process_map(filename):
+    users = set()
+    for _, element in ET.iterparse(filename):
+        if element.tag == 'node' or element.tag == 'way' or element.tag == 'relation':
+                userid = element.attrib['uid']
+                users.add(userid)
+
+    print len(users)
+    
+process_map(OSMFILE)
+```
