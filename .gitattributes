@@ -1,3 +1,2 @@
 *.py linguist-language=Python
-*.osm linguist-language=OSM
 *.ipynb linguist-language=Jupyter Notebook
