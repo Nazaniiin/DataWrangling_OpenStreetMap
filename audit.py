@@ -1,5 +1,8 @@
 #This code is part of the final project
 
+require 'linguist'
+project.language       #=> "Python"
+
 import xml.etree.cElementTree as ET
 from collections import defaultdict
 import re
