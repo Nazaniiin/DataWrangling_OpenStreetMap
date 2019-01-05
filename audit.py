@@ -1,5 +1,3 @@
-#This code is part of the final project
-
 import xml.etree.cElementTree as ET
 from collections import defaultdict
 import re
