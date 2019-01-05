@@ -1,7 +1,5 @@
 
 '''
-This code is part of the final project.
-
 After I have audited and cleaned the data and transfered everything into table in my database, I can start running queries on it. 
 The queries answer many questions such as:
 	Number of nodes
