@@ -1,7 +1,6 @@
 
 '''
-This code is part of the final project.
-It creats SQL tables for nodes_tags, ways, ways_nodes, ways_tags and nodes.
+Create SQL tables for nodes_tags, ways, ways_nodes, ways_tags and nodes.
 '''
 import sqlite3
 import csv
