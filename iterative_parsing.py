@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-This code is part of the Udacity quizes throughout the course.
-
 The task is to use the iterative parsing to process the map file and
 find out not only what tags are there, but also how many, to get the
 feeling on how much of which data you can expect to have in the map.
